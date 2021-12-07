@@ -38,7 +38,7 @@ class Posts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_id, user_id, title, shortdesc, longdesc, thumbimg, image, hit, url, is_featured, status, updated_by', 'required'),
+			array('category_id, user_id, title, shortdesc, longdesc, thumbimg, image, url, is_featured, status', 'required'),
 			array('hit, is_featured', 'numerical', 'integerOnly'=>true),
 			array('category_id, user_id, updated_by', 'length', 'max'=>20),
 			array('url, status', 'length', 'max'=>255),
@@ -70,8 +70,8 @@ class Posts extends CActiveRecord
 			'category_id' => 'Category',
 			'user_id' => 'User',
 			'title' => 'Title',
-			'shortdesc' => 'Shortdesc',
-			'longdesc' => 'Longdesc',
+			'shortdesc' => 'Short Description',
+			'longdesc' => 'Description',
 			'thumbimg' => 'Thumbimg',
 			'image' => 'Image',
 			'hit' => 'Hit',

@@ -24,6 +24,7 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+
 ?>
 
 <h1>Manage Categories</h1>
@@ -40,7 +41,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+
+$assetsDir = Yii::app()->baseUrl . '/images/upload/categories/';
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'categories-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -48,7 +53,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'name',
 		'description',
-		'banner',
+        array(
+            'name' => 'banner',
+            'type'=>'raw',
+            'value' =>  function ($data) { return CHtml::image(Yii::app()->baseUrl . '/images/upload/categories/' . $data['banner'],'alt text',array('height'=>'50', 'width'=>'50'));},
+        ),
 		'url',
 		'status',
 		/*

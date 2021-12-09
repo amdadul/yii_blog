@@ -70,8 +70,14 @@ class CategoriesController extends Controller
 		if(isset($_POST['Categories']))
 		{
 			$model->attributes=$_POST['Categories'];
+			$model->banner = CUploadedFile::getInstance($model,'banner');
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            {
+                //$model->image->saveAs('images/upload/categories');
+                $model->banner->saveAs(Yii::app()->basePath . '/../images/upload/categories/'.$model->banner);
+                $this->redirect(array('view','id'=>$model->id));
+            }
+
 		}
 
 		$this->render('create',array(
@@ -94,8 +100,11 @@ class CategoriesController extends Controller
 		if(isset($_POST['Categories']))
 		{
 			$model->attributes=$_POST['Categories'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            $model->banner = CUploadedFile::getInstance($model,'banner');
+			if($model->save()) {
+                $model->banner->saveAs(Yii::app()->basePath . '/../images/upload/categories/'.$model->banner);
+                $this->redirect(array('view', 'id' => $model->id));
+            }
 		}
 
 		$this->render('update',array(

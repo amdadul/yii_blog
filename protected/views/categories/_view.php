@@ -18,7 +18,8 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banner')); ?>:</b>
-	<?php echo CHtml::encode($data->banner); ?>
+    <?php $path = Yii::app()->baseUrl;?>
+	<img src="<?php echo $path . '/images/upload/categories/'.CHtml::encode($data->banner); ?>" width="100">
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('url')); ?>:</b>

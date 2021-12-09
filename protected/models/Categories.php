@@ -13,8 +13,12 @@
  * @property string $created_at
  * @property string $updated_at
  */
+
+use yii\web\UploadedFile;
+
 class Categories extends CActiveRecord
 {
+    public $banner;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -31,9 +35,10 @@ class Categories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, url, status', 'required'),
-			array('name, banner, url, status', 'length', 'max'=>255),
+			array('name, url', 'required'),
+			array('name, url', 'length', 'max'=>255),
 			array('description, created_at, updated_at', 'safe'),
+            array('banner', 'file', 'types'=>'jpg, gif, png', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, description, banner, url, status, created_at, updated_at', 'safe', 'on'=>'search'),
@@ -110,4 +115,23 @@ class Categories extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    protected function beforeSave()
+    {
+        if(parent::beforeSave())
+        {
+            if($this->isNewRecord)
+            {
+                $this->created_at = date("Y-m-d H:i:s");
+                $this->status = 1;
+                //$this->author_id=Yii::app()->user->id;
+            }
+            else
+                $this->updated_at = date("Y-m-d H:i:s");
+            return true;
+        }
+        else
+            return false;
+    }
+
 }
